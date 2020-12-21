@@ -51398,7 +51398,7 @@ function VisibilityFilterInput(props) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
-    placeholder: "Find moives by title (Case sensitive)"
+    placeholder: "Find moives by title"
   });
 }
 
@@ -51614,7 +51614,7 @@ function MoviesList(props) {
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(function (m) {
-      return m.Title.includes(visibilityFilter);
+      return m.Title.toLowerCase().includes(visibilityFilter.toLowerCase());
     });
   }
 
@@ -52129,8 +52129,10 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("img", {
         src: Backdrop,
         className: "backDrop"
-      })), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, {
-        "class": "backBtnWrap",
+      })), _react.default.createElement(_reactBootstrap.Row, {
+        className: "btnWrap"
+      }, _react.default.createElement(_reactBootstrap.Col, {
+        className: "backBtnWrap",
         xs: {
           span: 2,
           offset: 1
@@ -52143,6 +52145,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("i", {
         className: "fas fa-arrow-left"
       }), " Back"))), _react.default.createElement(_reactBootstrap.Col, {
+        className: "favBtnWrap",
         xs: {
           span: 2,
           offset: 7
@@ -53360,7 +53363,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34131" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36791" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
