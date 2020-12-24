@@ -93,6 +93,7 @@ class MainView extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { movies, userInfo } = this.props;
     const { user, userdata } = this.state;
     if (movies.length === 0 || !userInfo.Username) {
@@ -216,8 +217,10 @@ class MainView extends React.Component {
   }
 }
 
+// Combines the state data that will be registered to the store
 let mapStateToProps = (state) => {
   return { movies: state.movies, userInfo: state.userInfo };
 };
 
+// Register state data and actions to store as global props
 export default connect(mapStateToProps, { setMovies, setUser })(MainView);

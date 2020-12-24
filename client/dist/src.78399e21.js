@@ -51393,12 +51393,13 @@ var _actions = require("../../src/actions/actions");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function VisibilityFilterInput(props) {
+  console.log(props);
   return _react.default.createElement(_Form.default.Control, {
     onChange: function onChange(e) {
       return props.setFilter(e.target.value);
     },
     value: props.visibilityFilter,
-    placeholder: "Find moives by title (Case sensitive)"
+    placeholder: "Find moives by title"
   });
 }
 
@@ -51614,7 +51615,7 @@ function MoviesList(props) {
 
   if (visibilityFilter !== '') {
     filteredMovies = movies.filter(function (m) {
-      return m.Title.includes(visibilityFilter);
+      return m.Title.toLowerCase().includes(visibilityFilter.toLowerCase());
     });
   }
 
@@ -51774,10 +51775,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function deleteFav(movie) {
       var _this2 = this;
 
-      _axios.default.post("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem('user'), "/favorite/remove/").concat(movie._id)).then(function (res) {
+      _axios.default.post("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem("user"), "/favorite/remove/").concat(movie._id)).then(function (res) {
         _this2.props.setUser(res.data);
 
-        alert(movie.Title + ' has been removed from your favorite list');
+        alert(movie.Title + " has been removed from your favorite list");
       }).catch(function (error) {
         console.log(error);
       });
@@ -51804,13 +51805,13 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "updateUser",
     value: function updateUser(username, password, email, birthday) {
-      _axios.default.put("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem('user')), {
+      _axios.default.put("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem("user")), {
         Username: username,
         Password: password,
         Email: email,
         Birthday: birthday.slice(0, 10)
       }).then(function () {
-        alert(username + ' has been updated');
+        alert(username + " has been updated");
       }).catch(function (error) {
         console.log(error);
       });
@@ -51827,11 +51828,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteUser",
     value: function deleteUser(username) {
-      _axios.default.delete("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem('user'))).then(function () {
-        alert(username + ' has been deleted');
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        window.location.pathname = '/';
+      _axios.default.delete("https://moviehunt-gc.herokuapp.com/users/".concat(localStorage.getItem("user"))).then(function () {
+        alert(username + " has been deleted");
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.pathname = "/";
       }).catch(function (error) {
         console.log(error);
       });
@@ -51869,7 +51870,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         className: "profileView"
       }, _react.default.createElement(_reactBootstrap.Button, {
         onClick: function onClick() {
-          return location.href = '/';
+          return location.href = "/client";
         },
         variant: "dark",
         className: "backBtn"
@@ -53066,6 +53067,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      console.log(this.props);
       var _this$props = this.props,
           movies = _this$props.movies,
           userInfo = _this$props.userInfo;
@@ -53187,14 +53189,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return MainView;
-}(_react.default.Component);
+}(_react.default.Component); // Combines the state data that will be registered to the store
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     movies: state.movies,
     userInfo: state.userInfo
   };
-};
+}; // Register state data and actions to store as global props
+
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setMovies: _actions.setMovies,
@@ -53230,6 +53234,8 @@ function visibilityFilter() {
 function movies() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  console.log(state);
+  console.log(action);
 
   switch (action.type) {
     case _actions.SET_MOVIES:
@@ -53363,7 +53369,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45113" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43379" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
